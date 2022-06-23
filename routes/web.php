@@ -21,9 +21,10 @@ use App\Http\Controllers\backend\SupplyController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('master');
+// });
+Route::view('/', 'admin.master')->name('root');
 // For backend
 // Admin
 Route::resource('admin', AdminController::class);
