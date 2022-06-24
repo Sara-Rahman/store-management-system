@@ -23,12 +23,21 @@ use App\Http\Controllers\backend\RequisitionController;
 */
 
 // Route::get('/', function () {
-//     return view('master');
+//     return view('admin.master');
 // });
+// for admin login
+Route::get('/',[AdminController::class,'login'])->name('admin.login');
+Route::post('/dologin',[AdminController::class,'doLogin'])->name('admin.dologin');
+// route group with middleware
+Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
+ // root url
 Route::view('/', 'admin.master')->name('root');
+// for logout
+Route::get('/logout',[AdminController::class,'logout'])->name('logout');
+
+
 // For backend
-// Admin
-Route::resource('admin', AdminController::class);
+
 
 // Employee
 Route::resource('employee', EmployeeController::class);
@@ -61,4 +70,4 @@ Route::controller(RoleController::class)->group(function () {
     Route::put('/assign_permision','updatePermission')->name('update.permission');
    
 });
-
+});
