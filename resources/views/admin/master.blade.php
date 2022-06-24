@@ -9,7 +9,12 @@
         <title>Store Management System</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{{url('/admin/css/style.css')}}" rel="stylesheet" />
+         <!-- toastr cdn -->
+         <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+         <!-- close toastr -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+        {!! Toastr::message() !!}
     </head>
     <body class="sb-nav-fixed">
         @include('admin.partials.header')

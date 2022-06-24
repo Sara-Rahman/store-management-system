@@ -7,6 +7,7 @@ use App\Models\Module;
 use Illuminate\Http\Request;
 use App\Models\RolePermission;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class RoleController extends Controller
 {
@@ -107,6 +108,37 @@ class RoleController extends Controller
             ]);
         }
         return redirect()->route('role.index');
+
+    }
+    public function editPermission ($role_id)
+    {
+        $roles=Role::with('role_permissions')->find($role_id);
+      $permissions=$roles->role_permissions->pluck('permission_id')->toArray();
+        // $modules=Module::with('assign_permissions')->get();
+        $modules=Module::with('assign_permissions')->get();
+     
+       
+        // dd($role_permission);
+       
+ 
+        return view('admin.pages.role.edit_assign_permission',compact('permissions','modules','roles'));
+    }
+
+    public function updatePermission(Request $request)
+    {  
+        $role=RolePermission::where('role_id',$request->role_id)->delete();
+        foreach ($request->assign_permissions as $permission)
+        {
+            // dd($permission);
+      
+            RolePermission::Create([
+                'role_id'=>$request->role_id,
+                'permission_id'=>$permission,
+            ]);
+        }
+        Toastr::success('Permissions Edited Successfully');
+        return redirect()->route('role.index');
+
 
     }
 }

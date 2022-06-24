@@ -56,6 +56,9 @@ Route::resource('role', RoleController::class);
 Route::controller(RoleController::class)->group(function () {
     Route::get('/assign_permision/{role_id}','assignPermission')->name('assign.permission');
     Route::post('/store_permision','storePermission')->name('store.permission');
+    // for edit and update assigning permissions
+    Route::get('/assign_permision/edit/{role_id}','editPermission')->name('edit.permission');
+    Route::put('/assign_permision','updatePermission')->name('update.permission');
    
 });
 

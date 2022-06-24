@@ -39,13 +39,13 @@
           <td>{{$role->name}}</td>
           <td>
              @foreach($role->role_permissions as $data)
-                <p class="btn btn-success btn-sm">{{$data->permission->name}}</p>
+                <p class="btn btn-success btn-sm">{{ucfirst(str_replace('.',' ', $data->permission->name))}}</p>
             @endforeach
           </td>        
           <td>{{$role->status}}</td>  
           <td>
-              <a class="btn btn-info" href="{{route('assign.permission',$role->id)}}"><i class="fas fa-edit"></i>Assign Permission</a>
-              <a class="btn btn-danger" href="#"><i class="fas fa-trash"></i></a>
+              <a class="btn btn-info"  href="{{route('assign.permission',$role->id)}}">Assign Permission</a>
+              <a class="btn btn-warning"  href="{{route('edit.permission',$role->id)}}"><i class="fas fa-edit"></i></a>
           </td> 
     
       </tr>
