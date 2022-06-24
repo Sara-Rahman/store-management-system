@@ -3,12 +3,13 @@ namespace App;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\ItemController;
+use App\Http\Controllers\backend\RoleController;
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\StockController;
+use App\Http\Controllers\backend\SupplyController;
 use App\Http\Controllers\backend\EmployeeController;
 use App\Http\Controllers\backend\ExecutiveController;
 use App\Http\Controllers\backend\RequisitionController;
-use App\Http\Controllers\backend\SupplyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +41,21 @@ Route::resource('item', ItemController::class);
 
 // Requisition
 Route::resource('requisition', RequisitionController::class);
+// approved or rejected requisition 
 
 // stock
 Route::resource('stock', StockController::class);
 
 // supply
 Route::resource('supply', SupplyController::class);
+
+// Role
+Route::resource('role', RoleController::class);
+
+// Using role controller to assign and store permissions under specific module
+Route::controller(RoleController::class)->group(function () {
+    Route::get('/assign_permision/{role_id}','assignPermission')->name('assign.permission');
+    Route::post('/store_permision','storePermission')->name('store.permission');
+   
+});
+

@@ -9,5 +9,9 @@ class Module extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    public function assign_permissions()
+    {
+        return $this->hasMany(Permission::class);
+    }
 
 }

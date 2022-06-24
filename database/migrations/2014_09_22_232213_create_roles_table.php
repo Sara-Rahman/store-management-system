@@ -17,6 +17,8 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('status')->default('active');
+            $table->string('slug');
+
         });
     }
 

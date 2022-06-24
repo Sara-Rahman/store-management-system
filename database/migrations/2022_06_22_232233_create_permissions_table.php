@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('module_id');
             $table->string('name',30);
             $table->string('status',10)->default('active');
+            $table->string('slug');
             $table->timestamps();
         });
     }

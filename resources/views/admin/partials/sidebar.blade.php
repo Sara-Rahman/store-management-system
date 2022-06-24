@@ -37,9 +37,13 @@
                     Requistion
                 </a>
 
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('role.index')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Roles
+                </a>
+                <a class="nav-link" href="#">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Permissions
                 </a>
                
                 
