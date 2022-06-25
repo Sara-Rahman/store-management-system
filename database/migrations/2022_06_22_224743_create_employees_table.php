@@ -18,7 +18,9 @@ return new class extends Migration
             $table->foreignId('role_id');
             $table->string('name',50);
             $table->string('email',50);
-            $table->string('password',50);
+            $table->string('phone',15);
+            $table->string('address',50);
+            $table->string('password');
             $table->timestamps();
         });
     }

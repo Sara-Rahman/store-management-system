@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class EmployeeController extends Controller
 {
@@ -14,7 +17,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employees=Employee::all();
+        return view('admin.pages.employee.index',compact('employees'));
     }
 
     /**
@@ -24,7 +28,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        $roles=Role::all();
+        return view('admin.pages.employee.create',compact('roles'));
+
     }
 
     /**
@@ -35,7 +41,26 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'role_id'=>'required',
+            'name'=>'required',
+            'email'=>'required',
+            'phone'=>'required',
+            'address'=>'required',
+            'password'=>'required',
+        ]);
+        Employee::create([
+            'role_id'=>$request->role_id,
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'address'=>$request->address,
+            'password'=>bcrypt($request->password),
+            
+        ]);
+       
+        return redirect()->back()->with('success','Employee Added Successfully');
     }
 
     /**
@@ -57,7 +82,10 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $roles=Role::all();
+        $employee=Employee::find($id);
+        return view('admin.pages.employee.edit',compact('employee','roles'));
+
     }
 
     /**
@@ -69,7 +97,15 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee=Employee::find($id);
+        $employee->update([
+            'name'=>$request->name,   
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'address'=>$request->address,
+        ]);
+    
+        return redirect()->route('employee.index')->with('success',"Employee Updated successfully");
     }
 
     /**
@@ -80,6 +116,7 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Employee::find($id)->delete();
+        return redirect()->back()->with('danger',"Employee Deleted");
     }
 }
