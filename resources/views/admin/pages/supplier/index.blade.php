@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('content')
 <div class="container">
-<h1>Employee</h1>
+<h1>Supplier</h1>
 
 <hr>
 @if(session()->has('danger'))
@@ -21,7 +21,7 @@
     </div>
 @endif
 
- <a href="{{route('employee.create')}}" button type="submit" class="btn btn-primary">Create Employee</button> </a>
+ <a href="{{route('supplier.create')}}" button type="submit" class="btn btn-primary">Create Supplier</button> </a>
 
 
 
@@ -34,23 +34,25 @@
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
                     <th scope="col">Address</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach($employees as $key=>$employee)
+                    @foreach($suppliers as $key=>$supplier)
 
                     <tr>
-                      
+                     
                       <th>{{$key+1}}</th>
-                      <td>{{$employee->name}}</td>
-                      <td>{{$employee->email}}</td>
-                      <td>{{$employee->phone}}</td>
-                      <td>{{$employee->address}}</td>
+                      <td>{{$supplier->name}}</td>
+                      <td>{{$supplier->email}}</td>
+                      <td>{{$supplier->phone}}</td>
+                      <td>{{$supplier->address}}</td>
+                      <td>{{$supplier->status}}</td>
                       <td>
                         <div style="display: flex">
-                        <a  class="btn btn-warning me-2" href="{{ route('employee.edit',$employee->id)}}"><i class="fas fa-edit"></i></a> 
-                        <form action="{{ route('employee.destroy',$employee->id)}}" method="POST">
+                        <a  class="btn btn-warning me-2" href="{{ route('supplier.edit',$supplier->id)}}"><i class="fas fa-edit"></i></a> 
+                        <form action="{{ route('supplier.destroy',$supplier->id)}}" method="POST">
                           @csrf
                           @method('DELETE')
                           <div>

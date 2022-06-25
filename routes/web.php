@@ -6,8 +6,8 @@ use App\Http\Controllers\backend\ItemController;
 use App\Http\Controllers\backend\RoleController;
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\StockController;
-use App\Http\Controllers\backend\SupplyController;
 use App\Http\Controllers\backend\EmployeeController;
+use App\Http\Controllers\backend\SupplierController;
 use App\Http\Controllers\backend\ExecutiveController;
 use App\Http\Controllers\backend\RequisitionController;
 
@@ -55,8 +55,8 @@ Route::resource('requisition', RequisitionController::class);
 // stock
 Route::resource('stock', StockController::class);
 
-// supply
-Route::resource('supply', SupplyController::class);
+// supplier
+Route::resource('supplier', SupplierController::class);
 
 // Role
 Route::resource('role', RoleController::class);

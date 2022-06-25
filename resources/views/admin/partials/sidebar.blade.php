@@ -13,11 +13,11 @@
                     Employees
                 </a>
 
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('executive.index')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Executives
                 </a>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('supplier.index')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Suppliers
                 </a>

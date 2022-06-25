@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Models\Executive;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ExecutiveController extends Controller
 {
@@ -14,7 +16,8 @@ class ExecutiveController extends Controller
      */
     public function index()
     {
-        //
+        $executives=Executive::all();
+        return view('admin.pages.executive.index',compact('executives'));
     }
 
     /**
@@ -24,7 +27,8 @@ class ExecutiveController extends Controller
      */
     public function create()
     {
-        //
+        $roles=Role::all();
+        return view('admin.pages.executive.create',compact('roles'));
     }
 
     /**
@@ -35,7 +39,25 @@ class ExecutiveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'role_id'=>'required',
+            'name'=>'required',
+            'email'=>'required',
+            'phone'=>'required',
+            'address'=>'required',
+            'password'=>'required',
+        ]);
+        Executive::create([
+            'role_id'=>$request->role_id,
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'address'=>$request->address,
+            'password'=>bcrypt($request->password),
+            
+        ]);
+       
+        return redirect()->back()->with('success','Executive Added Successfully');
     }
 
     /**
@@ -57,7 +79,9 @@ class ExecutiveController extends Controller
      */
     public function edit($id)
     {
-        //
+        $roles=Role::all();
+        $executive=Executive::find($id);
+        return view('admin.pages.executive.edit',compact('executive','roles'));
     }
 
     /**
@@ -69,7 +93,15 @@ class ExecutiveController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $executive=Executive::find($id);
+        $executive->update([
+            'name'=>$request->name,   
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'address'=>$request->address,
+        ]);
+    
+        return redirect()->route('executive.index')->with('success',"Executive Updated successfully");
     }
 
     /**
@@ -80,6 +112,7 @@ class ExecutiveController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Executive::find($id)->delete();
+        return redirect()->back()->with('danger',"Executive Deleted");
     }
 }

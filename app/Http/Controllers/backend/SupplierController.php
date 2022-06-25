@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
-class SupplyController extends Controller
+use App\Models\Supplier;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,8 @@ class SupplyController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers=Supplier::all();
+        return view('admin.pages.supplier.index',compact('suppliers'));
     }
 
     /**
@@ -24,7 +27,8 @@ class SupplyController extends Controller
      */
     public function create()
     {
-        //
+       
+        return view('admin.pages.supplier.create');
     }
 
     /**
@@ -35,7 +39,25 @@ class SupplyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            
+            'name'=>'required',
+            'email'=>'required',
+            'phone'=>'required',
+            'address'=>'required',
+           
+        ]);
+        Supplier::create([
+          
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'address'=>$request->address,
+            
+            
+        ]);
+       
+        return redirect()->back()->with('success','Supplier Added Successfully');
     }
 
     /**
@@ -57,7 +79,9 @@ class SupplyController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        $supplier=Supplier::find($id);
+        return view('admin.pages.supplier.edit',compact('supplier'));
     }
 
     /**
@@ -69,7 +93,15 @@ class SupplyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $supplier=Supplier::find($id);
+        $supplier->update([
+            'name'=>$request->name,   
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'address'=>$request->address,
+        ]);
+    
+        return redirect()->route('supplier.index')->with('success',"Supplier Updated successfully");
     }
 
     /**
@@ -80,6 +112,7 @@ class SupplyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Supplier::find($id)->delete();
+        return redirect()->back()->with('danger',"Supplier Deleted");
     }
 }

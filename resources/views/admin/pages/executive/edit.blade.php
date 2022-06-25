@@ -20,7 +20,7 @@
   </ul>
 </div>
 @endif
- <form action="{{route('employee.update',$employee->id)}}" method="POST">
+ <form action="{{route('executive.update',$executive->id)}}" method="POST">
     @method('PUT')
    @csrf
    <div class="row">
@@ -32,7 +32,7 @@
     
     
           <option
-          @if($data->id==$employee->role_id)
+          @if($data->id==$executive->role_id)
                 selected
                 @endif
             value="{{$data->id}}">{{$data->name}}</option>
@@ -42,19 +42,19 @@
       </div>
          <div class="form-group mt-2 ">
            <label for="name">Name <i class="text-danger">*</i> </label>
-           <input type="text" class="form-control" id="name" name="name" value="{{$employee->name}}" placeholder="Enter Employee Name" >
+           <input type="text" class="form-control" id="name" name="name" value="{{$executive->name}}" placeholder="Enter Executive Name" >
          </div>
          <div class="form-group mt-2 ">
            <label for="email">Email <i class="text-danger">*</i></label>
-           <input type="text" class="form-control" id="email" name="email" value="{{$employee->email}}"  placeholder="Enter Employee Email" >
+           <input type="text" class="form-control" id="email" name="email" value="{{$executive->email}}"  placeholder="Enter Executive Email" >
          </div>
          <div class="form-group mt-2 ">
            <label for="phone">Phone <i class="text-danger">*</i></label>
-           <input type="text" class="form-control" id="phone" name="phone" value="{{$employee->phone}}"  placeholder="Enter Employee Email" >
+           <input type="text" class="form-control" id="phone" name="phone" value="{{$executive->phone}}"  placeholder="Enter Executive Phone" >
          </div>
          <div class="form-group mt-2 ">
            <label for="address">Address <i class="text-danger">*</i></label>
-           <input type="text" class="form-control" id="address" name="address" value="{{$employee->address}}"  placeholder="Enter Employee Address" >
+           <input type="text" class="form-control" id="address" name="address" value="{{$executive->address}}"  placeholder="Enter Executive Address" >
          </div>
          <div class="form-group mt-2 ">
              <label for="password">Password <i class="text-danger">*</i></label>
