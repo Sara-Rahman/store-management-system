@@ -33,8 +33,8 @@ class ModuleSeeder extends Seeder
                
                 Permission::firstOrCreate([
                     'module_id'=>$check_requisition->id,
-                    'name'=>$permission,
-                    'slug'=>Str::slug($permission)
+                    'slug'=>$permission,
+                    'name'=>ucfirst(str_replace('.',' ',($permission)))
                 ]);
             }
         }
@@ -54,8 +54,8 @@ class ModuleSeeder extends Seeder
                
                 Permission::firstOrCreate([
                     'module_id'=>$check_item->id,
-                    'name'=>$permission,
-                    'slug'=>Str::slug($permission)
+                    'slug'=>$permission,
+                    'name'=>ucfirst(str_replace('.',' ',($permission)))
                 ]);
             }
         }
@@ -75,8 +75,8 @@ class ModuleSeeder extends Seeder
                
                 Permission::firstOrCreate([
                     'module_id'=>$check_stock->id,
-                    'name'=>$permission,
-                    'slug'=>Str::slug($permission)
+                    'slug'=>$permission,
+                    'name'=>ucfirst(str_replace('.',' ',($permission)))
                 ]);
             }
         }
@@ -96,8 +96,8 @@ class ModuleSeeder extends Seeder
                
                 Permission::firstOrCreate([
                     'module_id'=>$check_supplier->id,
-                    'name'=>$permission,
-                    'slug'=>Str::slug($permission)
+                    'slug'=>$permission,
+                    'name'=>ucfirst(str_replace('.',' ',($permission)))
                 ]);
             }
         }

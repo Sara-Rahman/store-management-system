@@ -16,13 +16,13 @@ class AdminController extends Controller
     public function dologin(Request $request)
     {
         $userlogin=$request->except('_token');
-        if(Auth::attempt($userlogin)){
-
-            return redirect()->route('root');
+        // dd($request->all());
+        if(Auth::guard('web')->attempt($userlogin) || Auth::guard('employee')->attempt($userlogin)){
+            return view('admin.master')->with('message','Login successful.');
         }
         else
         {
-            return redirect()->back();
+            return redirect()->back()->with('error','Invalid user credentials');
         }
     }
     public function logout()

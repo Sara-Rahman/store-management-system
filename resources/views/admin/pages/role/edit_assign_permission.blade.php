@@ -27,8 +27,6 @@
                           </label>
                       </div>
                     @endforeach
-                
-
             </div>
           @endforeach
           <br>
