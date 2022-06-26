@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('requisitions', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50);
-            $table->double('price');
+            $table->foreignId('item_id');
             $table->integer('quantity');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
+use App\Models\Item;
+use App\Models\Stock;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class StockController extends Controller
 {
@@ -14,7 +16,8 @@ class StockController extends Controller
      */
     public function index()
     {
-        //
+        $stocks=Stock::all();
+        return view('admin.pages.stock.index',compact('stocks'));
     }
 
     /**
@@ -24,7 +27,8 @@ class StockController extends Controller
      */
     public function create()
     {
-        //
+        $items=Item::all();
+        return view('admin.pages.stock.create',compact('items'));
     }
 
     /**
@@ -35,7 +39,19 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            
+            'item_id'=>'required',
+            'quantity'=>'required',
+           
+        ]);
+        $item=Item::where('id',$request->item_id)->first();
+        Stock::create([
+            'item_id'=>$request->item_id,  
+            'price'=>$request->quantity*$item->price, 
+            'quantity'=>$request->quantity,
+        ]);
+        return redirect()->back()->with('success','Stock Added Successfully');
     }
 
     /**
@@ -57,7 +73,9 @@ class StockController extends Controller
      */
     public function edit($id)
     {
-        //
+        $items=Item::all();
+        $stock=Stock::find($id);
+        return view('admin.pages.stock.edit',compact('stock','items'));
     }
 
     /**
@@ -69,7 +87,17 @@ class StockController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+        $stock=Stock::find($id);
+        $item=Item::where('name',$request->item)->first();
+        $stock->update([
+              
+            'price'=>$request->quantity*$item->price, 
+            'quantity'=>$request->quantity,
+        
+        ]);
+    
+        return redirect()->route('stock.index')->with('success',"Stock Updated successfully");
     }
 
     /**

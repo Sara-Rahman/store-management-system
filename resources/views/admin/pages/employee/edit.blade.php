@@ -30,7 +30,6 @@
     
           @foreach ($roles as $data)
     
-    
           <option
           @if($data->id==$employee->role_id)
                 selected
@@ -38,7 +37,6 @@
             value="{{$data->id}}">{{$data->name}}</option>
             @endforeach
         </select>
-     
       </div>
          <div class="form-group mt-2 ">
            <label for="name">Name <i class="text-danger">*</i> </label>

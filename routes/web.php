@@ -31,7 +31,7 @@ Route::post('/dologin',[AdminController::class,'doLogin'])->name('admin.dologin'
 // route group with middleware
 Route::group(['prefix'=>'admin','middleware'=>['auth:web,employee']],function(){
  // root url
-Route::view('/', 'admin.master')->name('root');
+Route::view('/home', 'admin.master')->name('root');
 // for logout
 Route::get('/logout',[AdminController::class,'logout'])->name('logout');
 

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
+use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ItemController extends Controller
 {
@@ -14,7 +15,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        
+        $items=Item::all();
+        return view('admin.pages.item.index',compact('items'));
     }
 
     /**
@@ -24,7 +26,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.item.create');
     }
 
     /**
@@ -35,7 +37,19 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            
+            'name'=>'required',
+            'description'=>'required',
+            'price'=>'required',
+           
+        ]);
+        Item::create([
+            'name'=>$request->name,   
+            'description'=>$request->description,
+            'price'=>$request->price,
+        ]);
+        return redirect()->back();
     }
 
     /**
@@ -57,7 +71,8 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item=Item::find($id);
+        return view('admin.pages.item.edit',compact('item'));
     }
 
     /**
@@ -69,7 +84,15 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item=Item::find($id);
+        $item->update([
+            'name'=>$request->name,   
+            'description'=>$request->description,
+            'price'=>$request->price,
+        
+        ]);
+    
+        return redirect()->route('item.index')->with('success',"Item Updated successfully");
     }
 
     /**
@@ -80,6 +103,7 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Item::find($id)->delete();
+        return redirect()->back()->with('danger',"Item Deleted");
     }
 }
