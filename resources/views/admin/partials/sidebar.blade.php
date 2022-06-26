@@ -12,6 +12,8 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Employees
                 </a>
+                
+                
 
                 <a class="nav-link" href="{{route('executive.index')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
@@ -26,11 +28,12 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Items
                 </a>
-
+                @if(getPermissions(auth()->user()->role_id,'stock.index'))
                 <a class="nav-link" href="{{route('stock.index')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Stock
                 </a>
+                @endif
 
                 
                 <a class="nav-link" href="#">

@@ -20,7 +20,7 @@
   </ul>
 </div>
 @endif
- <form action="{{route('item.store')}}" method="POST">
+ <form action="{{route('item.store')}}" method="POST" enctype="multipart/form-data">
    @csrf
    <div class="row">
     
@@ -36,6 +36,10 @@
            <label for="price">Price <i class="text-danger">*</i></label>
            <input type="number" class="form-control" id="price" name="price" placeholder="Enter Price" required>
          </div>
+         <div class="mt-2">
+          <label for="item_image" class="form-label">Insert Image</label>
+          <input class="form-control" type="file" id="item_image" name="item_image">
+      </div>
         
         
    </div>

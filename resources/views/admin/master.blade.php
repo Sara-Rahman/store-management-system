@@ -26,6 +26,11 @@
             <div id="layoutSidenav_content">
                 <main>
                     @yield('content')
+                    @if(session()->has('warning'))
+                        <p class="alert alert-danger">
+                            {{session()->get('warning')}}
+                        </p>
+                    @endif
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">

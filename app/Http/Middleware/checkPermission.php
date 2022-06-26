@@ -16,22 +16,12 @@ class checkPermission
      */
     public function handle(Request $request, Closure $next)
     {
-        $this->checkPermission($request);
-        return $next($request);
-    }
-    public function checkPermission(Request $request)
-    {
-        $user = auth()->user();
-        if (!$user->role) {
-            abort(403, 'You must be an administrator.');
-        } else {
-            $permissions = $user->role->permissions->pluck('slug')->toArray();
-            $current_route_name = $request->route()->action['as'];
-
-            if (!in_array($current_route_name, $permissions)) {
-                abort(403, 'You must be an administrator.');
-            }
+        if(getPermissions(auth()->user()->role_id,$request->route()->getName()))
+        {
+            return $next($request);
+        }
+        return redirect()->back()->with('warning','You do not have permission.');
         }
 
     }
-}
+

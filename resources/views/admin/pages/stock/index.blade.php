@@ -21,7 +21,9 @@
     </div>
 @endif
 
+
  <a href="{{route('stock.create')}}" button type="submit" class="btn btn-primary">Create Stock</button> </a>
+
 <div>
               <table class="table" style="text-align: center;">
                 <thead class="thead-dark">

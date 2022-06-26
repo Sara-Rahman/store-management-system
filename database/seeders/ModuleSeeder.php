@@ -17,6 +17,48 @@ class ModuleSeeder extends Seeder
      */
     public function run()
     {
+        // for employee    
+        $check_employee=Module::where('name','Employee')->first();
+        if(!$check_employee)
+        {
+            
+            $check_employee = Module::firstOrCreate([
+                'name' => 'Employee',
+               
+            ]);
+            //employee - permission
+            $permissions=['employee.create','employee.index','employee.destroy','employee.update','employee.edit','employee.show','employee.status','employee.store'];
+            foreach ($permissions as $permission)
+            {
+               
+                Permission::firstOrCreate([
+                    'module_id'=>$check_employee->id,
+                    'slug'=>$permission,
+                    'name'=>ucfirst(str_replace('.',' ',($permission)))
+                ]);
+            }
+        }
+        // for store executive    
+        $check_executive=Module::where('name','Store Executive')->first();
+        if(!$check_executive)
+        {
+            
+            $check_executive = Module::firstOrCreate([
+                'name' => 'Store Executive',
+               
+            ]);
+            //store executive - permission
+            $permissions=['executive.create','executive.index','executive.destroy','executive.update','executive.edit','executive.show','executive.status','executive.store'];
+            foreach ($permissions as $permission)
+            {
+               
+                Permission::firstOrCreate([
+                    'module_id'=>$check_executive->id,
+                    'slug'=>$permission,
+                    'name'=>ucfirst(str_replace('.',' ',($permission)))
+                ]);
+            }
+        }
         // for requisition    
         $check_requisition=Module::where('name','Requisition')->first();
         if(!$check_requisition)

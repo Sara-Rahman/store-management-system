@@ -30,13 +30,17 @@
            <input type="text" class="form-control" id="name" name="name" value="{{$item->name}}" placeholder="Enter Name" >
          </div>
          <div class="form-group mt-2 ">
-           <label for="email">Email <i class="text-danger">*</i></label>
+           <label for="email">Description <i class="text-danger">*</i></label>
            <input type="text" class="form-control" id="email" name="email" value="{{$item->description}}"  placeholder="Enter Description >
          </div>
-         <div class="form-group mt-2 ">
-           <label for="phone">Phone <i class="text-danger">*</i></label>
+         <div class="form-group mt-2">
+           <label for="phone">Price <i class="text-danger">*</i></label>
            <input type="text" class="form-control" id="phone" name="phone" value="{{$item->price}}"  placeholder="Enter Price" >
          </div>
+         <div class="mt-2">
+          <label for="item_image" class="form-label">Insert Image</label>
+          <input class="form-control" type="file" id="item_image" name="item_image">
+      </div>
         
          
    </div>

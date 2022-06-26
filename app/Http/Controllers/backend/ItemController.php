@@ -37,6 +37,13 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+        $image_name=null;
+        if($request->hasFile('item_image'))
+        {
+            $image_name=date('Ymdhis').'.'.$request->file('item_image')->getClientOriginalExtension();
+            $request->file('item_image')->storeAs('/uploads/items',$image_name);
+        }
+
         $request->validate([
             
             'name'=>'required',
@@ -48,8 +55,9 @@ class ItemController extends Controller
             'name'=>$request->name,   
             'description'=>$request->description,
             'price'=>$request->price,
+            'image'=>$image_name,
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success','Item Added Successfully');
     }
 
     /**
