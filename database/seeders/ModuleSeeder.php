@@ -122,6 +122,27 @@ class ModuleSeeder extends Seeder
                 ]);
             }
         }
+        // for role
+        $check_role=Module::where('name','Role')->first();
+        if(!$check_role)
+        {
+            
+            $check_role = Module::firstOrCreate([
+                'name' => 'Role',
+                
+            ]);
+            //store stock - permission
+            $permissions=['role.edit','role.create','role.index','role.show','role.update','role.store'];
+            foreach ($permissions as $permission)
+            {
+               
+                Permission::firstOrCreate([
+                    'module_id'=>$check_role->id,
+                    'slug'=>$permission,
+                    'name'=>ucfirst(str_replace('.',' ',($permission)))
+                ]);
+            }
+        }
         // for supplier
         $check_supplier=Module::where('name','Supplier')->first();
         if(!$check_supplier)

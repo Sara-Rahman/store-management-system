@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('executives', function (Blueprint $table) {
+        Schema::create('item_requisitions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id');
-            $table->string('name',50);
-            $table->string('email',50);
-            $table->string('phone',15);
-            $table->string('address',50);
-            $table->string('password');
+            $table->foreignId('requisition_id');
+            $table->foreignId('item_id');
+            $table->double('quantity',20);        
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('executives');
+        Schema::dropIfExists('item_requisitions');
     }
 };

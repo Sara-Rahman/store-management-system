@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Models\Role;
+use App\Models\User;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,8 +18,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        
-        $employees=Employee::all();
+        $role=Role::where('name', 'Employee')->first();
+        $employees=User::where('role_id',$role->id)->get();
         return view('admin.pages.employee.index',compact('employees'));
     }
 
@@ -51,7 +52,7 @@ class EmployeeController extends Controller
             'address'=>'required',
             'password'=>'required',
         ]);
-        Employee::create([
+        User::create([
             'role_id'=>$request->role_id,
             'name'=>$request->name,
             'email'=>$request->email,
@@ -83,8 +84,10 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        $roles=Role::all();
-        $employee=Employee::find($id);
+        // $roles=Role::all();
+        // $employee=User::find($id);
+        $roles=Role::where('name','Employee')->get();
+        $employee=User::find($id);
         return view('admin.pages.employee.edit',compact('employee','roles'));
 
     }
@@ -98,7 +101,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $employee=Employee::find($id);
+        $employee=User::find($id);
         $employee->update([
             'name'=>$request->name,   
             'email'=>$request->email,
@@ -117,7 +120,7 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        Employee::find($id)->delete();
+        User::find($id)->delete();
         return redirect()->back()->with('danger',"Employee Deleted");
     }
 }

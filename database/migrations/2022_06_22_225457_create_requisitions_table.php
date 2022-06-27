@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('requisitions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('item_id');
-            $table->integer('quantity');
+            $table->string('requested_by');
             $table->string('status')->default('pending');
             $table->timestamps();
         });

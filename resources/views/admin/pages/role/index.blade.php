@@ -39,7 +39,7 @@
           <td>{{$role->name}}</td>
           <td>
              @foreach($role->role_permissions as $data)
-                <p class="btn btn-success btn-sm rounded-pill">{{ucfirst(str_replace('.',' ', $data->permission->name))}}</p>
+                <p class="badge rounded-pill bg-success">{{ucfirst(str_replace('.',' ', $data->permission->name))}}</p>
             @endforeach
           </td>        
           <td>{{$role->status}}</td>  

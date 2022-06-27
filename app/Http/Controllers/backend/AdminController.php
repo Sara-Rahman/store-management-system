@@ -15,8 +15,9 @@ class AdminController extends Controller
 
     public function dologin(Request $request)
     {
+
         $userlogin=$request->except('_token');
-        // dd($request->all());
+        //dd($request->all());
         if(Auth::guard('web')->attempt($userlogin) || Auth::guard('employee')->attempt($userlogin)){
             return view('admin.master')->with('message','Login successful.');
         }

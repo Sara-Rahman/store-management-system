@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('content')
 <div class="container">
-<h1>Item</h1>
+<h1>Requisition</h1>
 
 <hr>
 @if(session()->has('danger'))
@@ -21,36 +21,39 @@
     </div>
 @endif
 
- <a href="{{route('item.create')}}" button type="submit" class="btn btn-primary">Create Item</button> </a>
+
+ <a href="{{route('requisition.create')}}" button type="submit" class="btn btn-primary">Create Requisition</button> </a>
+
 <div>
               <table class="table" style="text-align: center;">
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Image</th>
+                    <th scope="col">Requested By</th>
+                    <th scope="col">Item List</th>  
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach($items as $key=>$item)
+                    @foreach($requisitions as $key=>$data)
 
                     <tr>
-                     
                       <th>{{$key+1}}</th>
-                      <td>{{$item->name}}</td>
-                      <td>{{$item->description}}</td>
-                      <td>{{$item->price}}</td>
-                      <td><img src="{{url('/uploads/items/'.$item->image)}}" style="border-radius:4px" width="100px"
-                        alt="item image"></td>
-                      <td>{{$item->status}}</td>
+                      <td>{{$data->requested_by}}</td>
+                      <td>
+                        @foreach($item_requisition as $value)
+                           <p>{{$value->item->name}}-{{$value->quantity}}</p>
+                         @endforeach
+                    </td> 
+                      
+
+                      
+                      <td>{{$data->status}}</td> 
                       <td>
                         <div style="display: flex; justify-content:center">
-                        <a  class="btn btn-warning me-2" href="{{ route('item.edit',$item->id)}}"><i class="fas fa-edit"></i></a> 
-                        <form action="{{ route('item.destroy',$item->id)}}" method="POST">
+                        <a  class="btn btn-warning me-2" href="{{ route('stock.edit',$data->id)}}"><i class="fas fa-edit"></i></a> 
+                        <form action="{{ route('requisition.destroy',$data->id)}}" method="POST">
                           @csrf
                           @method('DELETE')
                           <div>
