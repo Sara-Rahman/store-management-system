@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use App\Models\ItemRequisition;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Jobs\SendRequisitionNotificanJob;
+use App\Mail\RequisitionNotificationMail;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Validator;
 
 class RequisitionController extends Controller
 {
@@ -18,10 +23,9 @@ class RequisitionController extends Controller
      */
     public function index()
     {
-        $item_requisition=ItemRequisition::with('item_requisitions')->get();
-        // dd($item_requisition->item->name);
-        $requisitions=Requisition::all();
-        return view('admin.pages.requisition.index',compact('requisitions','item_requisition'));
+       
+        $requisitions=Requisition::with('item_requisitions')->where('user_id',auth()->user()->id)->get();
+        return view('admin.pages.requisition.index',compact('requisitions'));
 
     }
 
@@ -45,15 +49,25 @@ class RequisitionController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all(),auth()->user()->name);
-        Requisition::create([
-            'requested_by'=>Auth::user()->name
+       
+        $validator = Validator::make($request->all(), [
+            'quantity.*' => 'required|min:1',
+        ]);
+
+        if($validator->fails())
+        {
+            
+           toastr()->error('Quantity Required.');
+           return redirect()->back();
+        }
+
+        $requisition=Requisition::create([
+            'user_id'=>Auth::user()->id
 
         ]);
         $items=$request->item_id;
         $quantites=$request->quantity;
-        $requisition=Requisition::where('requested_by',auth()->user()->name)->first();
-
+       
         // dd($items,$quantites);
         foreach($items as $key=>$data){
             ItemRequisition::create([
@@ -61,9 +75,14 @@ class RequisitionController extends Controller
                 'item_id'=>$data,
                 'quantity'=>$quantites[$key]
             ]);
+            $details=[
+                'title'=>'Mail from Store Management System',
+                'body'=>'A new requisition has been created requested by '.$requisition->user->name,
+            ];
 
         }
-        return redirect()->back();
+        Mail::to('admin@gmail.com')->send(new RequisitionNotificationMail($details));
+        return redirect()->back()->with('success',"Requisition created and mail sent to admin");
 
 
     }
@@ -111,5 +130,21 @@ class RequisitionController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function approveRequisition($id)
+    {
+        $approved=Requisition::find($id);
+        $approved->update([
+            'status'=>'Approved'
+        ]);
+        return redirect()->back();
+    }
+    public function rejectRequisition($id)
+    {
+        $rejected=Requisition::find($id);
+        $rejected->update([
+            'status'=>'Rejected'
+        ]);
+        return redirect()->back();
     }
 }

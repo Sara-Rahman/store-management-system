@@ -84,9 +84,8 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        // $roles=Role::all();
-        // $employee=User::find($id);
-        $roles=Role::where('name','Employee')->get();
+        
+        $roles=Role::all();
         $employee=User::find($id);
         return view('admin.pages.employee.edit',compact('employee','roles'));
 

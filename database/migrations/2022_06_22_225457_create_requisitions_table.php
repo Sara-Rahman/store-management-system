@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('requisitions', function (Blueprint $table) {
             $table->id();
-            $table->string('requested_by');
-            $table->string('status')->default('pending');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();;
+            $table->string('status',15)->default('pending');
             $table->timestamps();
         });
     }

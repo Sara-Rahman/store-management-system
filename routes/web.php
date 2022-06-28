@@ -50,7 +50,11 @@ Route::resource('item', ItemController::class);
 
 // Requisition
 Route::resource('requisition', RequisitionController::class);
-// approved or rejected requisition 
+// approved and rejected requisition route in Requisition controller
+Route::controller(RequisitionController::class)->group(function () {
+    Route::get('/approved/{id}', 'approveRequisition')->name('approved');
+    Route::get('/rejected/{id}', 'rejectRequisition')->name('rejected');
+});
 
 // stock
 Route::resource('stock', StockController::class);

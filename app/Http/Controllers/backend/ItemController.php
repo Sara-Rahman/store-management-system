@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class ItemController extends Controller
 {
@@ -57,6 +58,7 @@ class ItemController extends Controller
             'price'=>$request->price,
             'image'=>$image_name,
         ]);
+        
         return redirect()->back()->with('success','Item Added Successfully');
     }
 
@@ -114,4 +116,5 @@ class ItemController extends Controller
         Item::find($id)->delete();
         return redirect()->back()->with('danger',"Item Deleted");
     }
+    
 }

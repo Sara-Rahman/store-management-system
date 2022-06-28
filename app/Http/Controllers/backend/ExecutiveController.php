@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Models\Role;
+use App\Models\User;
 use App\Models\Executive;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,8 @@ class ExecutiveController extends Controller
      */
     public function index()
     {
-        $executives=Executive::all();
+        $role=Role::where('name', 'Store Executve')->first();
+        $executives=User::where('role_id',$role->id)->get();
         return view('admin.pages.executive.index',compact('executives'));
     }
 
@@ -47,7 +49,7 @@ class ExecutiveController extends Controller
             'address'=>'required',
             'password'=>'required',
         ]);
-        Executive::create([
+        User::create([
             'role_id'=>$request->role_id,
             'name'=>$request->name,
             'email'=>$request->email,
@@ -80,7 +82,7 @@ class ExecutiveController extends Controller
     public function edit($id)
     {
         $roles=Role::all();
-        $executive=Executive::find($id);
+        $executive=User::find($id);
         return view('admin.pages.executive.edit',compact('executive','roles'));
     }
 
@@ -93,7 +95,7 @@ class ExecutiveController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $executive=Executive::find($id);
+        $executive=User::find($id);
         $executive->update([
             'name'=>$request->name,   
             'email'=>$request->email,
@@ -112,7 +114,7 @@ class ExecutiveController extends Controller
      */
     public function destroy($id)
     {
-        Executive::find($id)->delete();
+        User::find($id)->delete();
         return redirect()->back()->with('danger',"Executive Deleted");
     }
 }

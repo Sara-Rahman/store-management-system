@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('item_requisitions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('requisition_id');
-            $table->foreignId('item_id');
-            $table->double('quantity',20);        
+            $table->foreignId('requisition_id')->constrained('requisitions')->cascadeOnDelete();
+            $table->foreignId('item_id')->constrained('items')->cascadeOnDelete();;
+            $table->integer('quantity');        
             $table->timestamps();
         });
     }

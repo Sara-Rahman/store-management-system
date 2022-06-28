@@ -48,6 +48,7 @@
                       <td>{{$employee->phone}}</td>
                       <td>{{$employee->address}}</td>
                       <td>
+                        
                         <div style="display: flex">
                         <a  class="btn btn-warning me-2" href="{{ route('employee.edit',$employee->id)}}"><i class="fas fa-edit"></i></a> 
                         <form action="{{ route('employee.destroy',$employee->id)}}" method="POST">
@@ -60,6 +61,7 @@
   
                           </form>
                         </div>
+                        
                       </td>
                     </tr>
 
