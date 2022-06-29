@@ -18,7 +18,7 @@ class AdminController extends Controller
 
         $userlogin=$request->except('_token');
         //dd($request->all());
-        if(Auth::guard('web')->attempt($userlogin) || Auth::guard('employee')->attempt($userlogin)){
+        if(Auth::attempt($userlogin)){
             return view('admin.master')->with('message','Login successful.');
         }
         else

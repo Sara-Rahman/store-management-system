@@ -28,10 +28,15 @@
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">ID</th>
+                    @if(auth()->user()->role->name!='Store Executive')
                     <th scope="col">Requested By</th>
+                    @endif
                     <th scope="col">Item List</th> 
+                    <th scope="col">Price</th> 
                     <th scope="col">Status</th>
+                    @if(auth()->user()->role->name!='Store Executive')
                     <th scope="col">Action</th>
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
@@ -39,12 +44,17 @@
                   {{-- @dd($data) --}}
                     <tr>
                       <th>{{$key+1}}</th>
+                      @if(auth()->user()->role->name!='Store Executive')
                       <td>{{$data->user->name}}</td>
+                      @endif
+                      
                       <td>
                         @foreach($data->item_requisitions as $value)
                            <p>{{$value->item->name}}-{{$value->quantity}}</p>
                          @endforeach
-                    </td> 
+                    </td>
+                    <td>{{$value->price}}</td>
+                     
                       <td>
                         @if($data->status=='pending')
                         <button class="btn btn-warning">{{$data->status}}</button>

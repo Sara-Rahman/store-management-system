@@ -36,6 +36,12 @@
            <label for="quantity">Quantity <i class="text-danger">*</i></label>
            <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Enter Quantity" required>
          </div>
+         </div>
+         
+         <div class="form-group mt-2 ">
+           <label for="price">Price <i class="text-danger">*</i></label>
+           <input type="number" class="form-control" id="price" name="price" placeholder="Enter Price" required>
+         </div>
         
         
    </div>

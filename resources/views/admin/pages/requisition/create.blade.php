@@ -55,7 +55,7 @@
               var maxField = 10; //Input fields increment limitation
               var addButton = $('.add_button'); //Add button selector
               var wrapper = $('.field_wrapper'); //Input field wrapper
-              var fieldHTML = '<div class="requisition row d-flex"><div class="col-4"><select id="item_id" name="item_id[]" class="form-control"> @foreach($items as $item)<option value="{{$item->id}}">{{$item->name}}</option> @endforeach</select></div><div class="col-4"><input type="number" name="quantity[]" class="form-control" placeholder="Enter Quantity" min="1" value=""/></div><div class="col-4"><a href="javascript:void(0);" class="add_button btn btn-info">+</a><a href="javascript:void(0);" class="remove_button btn btn-danger">-</a></div><hr class="row" style="height:1px; margin-left:0.5rem; margin-top: 1rem;"></div>'; //New input field html 
+              var fieldHTML = '<div class="requisition row d-flex"><div class="col-4"><select id="item_id" name="item_id[]" class="form-control"> @foreach($items as $item)<option value="{{$item->id}}">{{$item->name}}</option> @endforeach</select></div><div class="col-4"><input type="number" name="quantity[]" class="form-control" placeholder="Enter Quantity" min="1" value=""/></div><div class="col-4"><a href="javascript:void(0);" class="remove_button btn btn-danger">-</a></div><hr class="row" style="height:1px; margin-left:0.5rem; margin-top: 1rem;"></div>'; //New input field html 
               var x = 1; //Initial field counter is 1
               
               //Once add button is clicked

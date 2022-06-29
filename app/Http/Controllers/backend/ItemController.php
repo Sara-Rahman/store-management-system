@@ -49,13 +49,12 @@ class ItemController extends Controller
             
             'name'=>'required',
             'description'=>'required',
-            'price'=>'required',
+            
            
         ]);
         Item::create([
             'name'=>$request->name,   
             'description'=>$request->description,
-            'price'=>$request->price,
             'image'=>$image_name,
         ]);
         
@@ -98,7 +97,7 @@ class ItemController extends Controller
         $item->update([
             'name'=>$request->name,   
             'description'=>$request->description,
-            'price'=>$request->price,
+            
         
         ]);
     
@@ -115,6 +114,11 @@ class ItemController extends Controller
     {
         Item::find($id)->delete();
         return redirect()->back()->with('danger',"Item Deleted");
+    }
+    public function receivedItems()
+    {
+        // $receieved=
+        return view('admin.pages.item.received_items');
     }
     
 }

@@ -32,10 +32,6 @@
            <label for="description">Description <i class="text-danger">*</i></label>
            <input type="text" class="form-control" id="description" name="description" placeholder="Enter  Description" required>
          </div>
-         <div class="form-group mt-2 ">
-           <label for="price">Price <i class="text-danger">*</i></label>
-           <input type="number" class="form-control" id="price" name="price" placeholder="Enter Price" required>
-         </div>
          <div class="mt-2">
           <label for="item_image" class="form-label">Insert Image</label>
           <input class="form-control" type="file" id="item_image" name="item_image">

@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\backend;
 
 use App\Models\Item;
+use App\Models\Stock;
 use App\Models\Requisition;
 use Illuminate\Http\Request;
 use App\Models\ItemRequisition;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Jobs\SendRequisitionNotificanJob;
 use App\Mail\RequisitionNotificationMail;
-use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Validator;
 
 class RequisitionController extends Controller
@@ -23,10 +24,12 @@ class RequisitionController extends Controller
      */
     public function index()
     {
-       
+       if(auth()->user()->role->name=='Admin' || auth()->user()->role->name=='Store Executive')
+        $requisitions=Requisition::with('item_requisitions')->get();
+        else
         $requisitions=Requisition::with('item_requisitions')->where('user_id',auth()->user()->id)->get();
+        // dd($requisitions);
         return view('admin.pages.requisition.index',compact('requisitions'));
-
     }
 
     /**
@@ -55,33 +58,53 @@ class RequisitionController extends Controller
         ]);
 
         if($validator->fails())
-        {
-            
+        {   
            toastr()->error('Quantity Required.');
            return redirect()->back();
         }
-
         $requisition=Requisition::create([
             'user_id'=>Auth::user()->id
 
         ]);
         $items=$request->item_id;
         $quantites=$request->quantity;
-       
         // dd($items,$quantites);
         foreach($items as $key=>$data){
+            $totalPrice=0;
+            $requested_quantity= $quantites[$key];
+            while($quantites[$key]>0)
+            {
+                $stock=Stock::where('item_id',$data)
+                ->where('quantity','!=',0)
+                ->first();
+
+
+                if($stock->quantity>=$quantites[$key])
+                {
+                   
+
+                    $totalPrice+=$quantites[$key]*$stock->price;
+                    $stock->decrement('quantity',$quantites[$key]);
+                    $quantites[$key]=0;
+                    
+                }else
+                {
+                    $quantites[$key]=$quantites[$key]-$stock->quantity;
+                    $totalPrice+=$stock->quantity*$stock->price;
+                    $stock->decrement('quantity',$stock->quantity);
+                }
+               
+               
+            }
             ItemRequisition::create([
                 'requisition_id'=>$requisition->id,
                 'item_id'=>$data,
-                'quantity'=>$quantites[$key]
+                'quantity'=>$requested_quantity,
+                'price'=>$totalPrice,
             ]);
-            $details=[
-                'title'=>'Mail from Store Management System',
-                'body'=>'A new requisition has been created requested by '.$requisition->user->name,
-            ];
-
+            
         }
-        Mail::to('admin@gmail.com')->send(new RequisitionNotificationMail($details));
+        // Mail::to('admin@gmail.com')->send(new RequisitionNotificationMail($details));
         return redirect()->back()->with('success',"Requisition created and mail sent to admin");
 
 

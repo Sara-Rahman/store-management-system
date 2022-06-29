@@ -10,6 +10,7 @@ use App\Http\Controllers\backend\EmployeeController;
 use App\Http\Controllers\backend\SupplierController;
 use App\Http\Controllers\backend\ExecutiveController;
 use App\Http\Controllers\backend\RequisitionController;
+use App\Http\Controllers\backend\StoreExecutiveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,8 +46,10 @@ Route::resource('employee', EmployeeController::class);
 // Executive
 Route::resource('executive', ExecutiveController::class);
 
-// Item
+// Items
 Route::resource('item', ItemController::class);
+// received items
+Route::get('/received/items',[StoreExecutiveController::class,'receivedItems'])->name('received.items');
 
 // Requisition
 Route::resource('requisition', RequisitionController::class);

@@ -48,7 +48,7 @@ class ModuleSeeder extends Seeder
                
             ]);
             //store executive - permission
-            $permissions=['executive.create','executive.index','executive.destroy','executive.update','executive.edit','executive.show','executive.status','executive.store'];
+            $permissions=['executive.create','executive.index','executive.destroy','executive.update','executive.edit','executive.show','executive.status','executive.store','received.items'];
             foreach ($permissions as $permission)
             {
                

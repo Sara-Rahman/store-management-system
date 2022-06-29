@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('name',50);
             $table->text('description');
-            $table->double('price');
             $table->text('image')->nullable();
             $table->string('status')->default('active');
             $table->timestamps();

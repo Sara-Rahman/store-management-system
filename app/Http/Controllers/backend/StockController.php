@@ -43,13 +43,15 @@ class StockController extends Controller
             
             'item_id'=>'required',
             'quantity'=>'required',
+            'price'=>'required',
            
         ]);
-        $item=Item::where('id',$request->item_id)->first();
+       
         Stock::create([
             'item_id'=>$request->item_id,  
-            'price'=>$request->quantity*$item->price, 
+            'price'=>$request->price, 
             'quantity'=>$request->quantity,
+            
         ]);
         return redirect()->back()->with('success','Stock Added Successfully');
     }

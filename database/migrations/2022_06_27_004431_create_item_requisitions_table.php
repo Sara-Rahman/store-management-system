@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('requisition_id')->constrained('requisitions')->cascadeOnDelete();
             $table->foreignId('item_id')->constrained('items')->cascadeOnDelete();;
             $table->integer('quantity');        
+            $table->double('price');        
             $table->timestamps();
         });
     }

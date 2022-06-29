@@ -29,7 +29,6 @@
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Price</th>
                     <th scope="col">Image</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
@@ -43,7 +42,6 @@
                       <th>{{$key+1}}</th>
                       <td>{{$item->name}}</td>
                       <td>{{$item->description}}</td>
-                      <td>{{$item->price}}</td>
                       <td><img src="{{url('/uploads/items/'.$item->image)}}" style="border-radius:4px" width="100px"
                         alt="item image"></td>
                       <td>{{$item->status}}</td>
