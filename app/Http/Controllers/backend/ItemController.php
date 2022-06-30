@@ -17,12 +17,19 @@ class ItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     use HasApiResponsesTrait;
+    public function getItems()
+    {
+        $items=Item::all();
+        $data = ItemResource::collection($items);
+        return $this->responseWithSuccess('Item list loaded', $data);
+    }
+
     public function index()
     {
         $items=Item::all();
         $data = ItemResource::collection($items);
-        // return view('admin.pages.item.index',compact('items'));
-        return $this->responseWithSuccess('Item list loaded', [$data]);
+        return view('admin.pages.item.index',compact('items'));
+        // return $this->responseWithSuccess('Item list loaded', [$data]);
     }
 
     /**
@@ -63,8 +70,8 @@ class ItemController extends Controller
             'description'=>$request->description,
             'image'=>$image_name,
         ]);
-        return $this->responseWithSuccess('Item created', [$data]);
-        // return redirect()->back()->with('success','Item Added Successfully');
+        // return $this->responseWithSuccess('Item created', [$data]);
+        return redirect()->route('item.index')->with('success','Item Added Successfully');
     }
 
     /**

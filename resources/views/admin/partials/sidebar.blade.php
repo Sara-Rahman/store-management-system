@@ -1,9 +1,9 @@
 <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <nav class="sb-sidenav accordion sb-sidenav-dark me-4" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav mt-2">
 
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('admin.dashboard')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Home
                 </a>

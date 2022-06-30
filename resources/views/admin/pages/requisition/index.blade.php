@@ -53,7 +53,7 @@
                            <p>{{$value->item->name}}-{{$value->quantity}}</p>
                          @endforeach
                     </td>
-                    <td>{{$value->price}}</td>
+                    <td>{{$data->price}}</td>
                      
                       <td>
                         @if($data->status=='pending')

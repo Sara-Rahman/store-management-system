@@ -14,7 +14,7 @@ trait HasApiResponsesTrait
      * 
      * @return JsonResponse
      */
-    protected function responseWithSuccess(String $message, array $data = [], int $statusCode = 200):JsonResponse
+    protected function responseWithSuccess(String $message, $data, int $statusCode = 200):JsonResponse
     {
         return response()->json([
             'success' => true,

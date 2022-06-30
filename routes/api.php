@@ -18,6 +18,5 @@ use App\Http\Controllers\backend\ItemController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-// Route::get('/items', [ItemController::class, 'index']);
-Route::apiResource('item', ItemController::class);
+Route::get('items', [ItemController::class,'getItems']);
 
