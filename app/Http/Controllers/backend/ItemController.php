@@ -5,6 +5,8 @@ namespace App\Http\Controllers\backend;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ItemResource;
+use App\Traits\HasApiResponsesTrait;
 use Brian2694\Toastr\Facades\Toastr;
 
 class ItemController extends Controller
@@ -14,10 +16,13 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    use HasApiResponsesTrait;
     public function index()
     {
         $items=Item::all();
-        return view('admin.pages.item.index',compact('items'));
+        $data = ItemResource::collection($items);
+        // return view('admin.pages.item.index',compact('items'));
+        return $this->responseWithSuccess('Item list loaded', [$data]);
     }
 
     /**
@@ -36,6 +41,7 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         $image_name=null;
@@ -52,13 +58,13 @@ class ItemController extends Controller
             
            
         ]);
-        Item::create([
+        $data=Item::create([
             'name'=>$request->name,   
             'description'=>$request->description,
             'image'=>$image_name,
         ]);
-        
-        return redirect()->back()->with('success','Item Added Successfully');
+        return $this->responseWithSuccess('Item created', [$data]);
+        // return redirect()->back()->with('success','Item Added Successfully');
     }
 
     /**
@@ -94,14 +100,14 @@ class ItemController extends Controller
     public function update(Request $request, $id)
     {
         $item=Item::find($id);
-        $item->update([
+        $data=$item->update([
             'name'=>$request->name,   
             'description'=>$request->description,
             
         
         ]);
-    
-        return redirect()->route('item.index')->with('success',"Item Updated successfully");
+        return $this->responseWithSuccess('Item updated', [$data]);
+        // return redirect()->route('item.index')->with('success',"Item Updated successfully");
     }
 
     /**
@@ -112,13 +118,11 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        Item::find($id)->delete();
-        return redirect()->back()->with('danger',"Item Deleted");
+        $data=Item::find($id)->delete();
+        return $this->responseWithSuccess('Item deleted', [$data]);
+
+        // return redirect()->back()->with('danger',"Item Deleted");
     }
-    public function receivedItems()
-    {
-        // $receieved=
-        return view('admin.pages.item.received_items');
-    }
+   
     
 }

@@ -33,6 +33,8 @@ Route::post('/dologin',[AdminController::class,'doLogin'])->name('admin.dologin'
 Route::group(['prefix'=>'admin','middleware'=>['auth:web,employee']],function(){
  // root url
 Route::view('/home', 'admin.master')->name('root');
+Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+
 // for logout
 Route::get('/logout',[AdminController::class,'logout'])->name('logout');
 

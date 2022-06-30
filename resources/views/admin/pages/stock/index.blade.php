@@ -32,7 +32,9 @@
                     <th scope="col">Item Name</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Price</th>
+                    @if(auth()->user()->role->name!='Admin')
                     <th scope="col">Action</th>
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
@@ -45,7 +47,7 @@
                       <td>{{$item->quantity}}</td>
                       <td>{{$item->price}}</td>
                      
-                      
+                      @if(auth()->user()->role->name!='Admin')
                       <td>
                         <div style="display: flex; justify-content:center">
                         <a  class="btn btn-warning me-2" href="{{ route('stock.edit',$item->id)}}"><i class="fas fa-edit"></i></a> 
@@ -60,6 +62,7 @@
                           </form>
                         </div>
                       </td>
+                      @endif
                     </tr>
 
             @endforeach

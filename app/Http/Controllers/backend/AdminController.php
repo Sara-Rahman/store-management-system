@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    public function dashboard()
+    {
+        return view('admin.pages.dashboard.dashboard');
+    }
     public function login()
     {
         return view('admin.login');
@@ -19,7 +23,7 @@ class AdminController extends Controller
         $userlogin=$request->except('_token');
         //dd($request->all());
         if(Auth::attempt($userlogin)){
-            return view('admin.master')->with('message','Login successful.');
+            return view('admin.pages.dashboard.dashboard')->with('message','Login successful.');
         }
         else
         {
