@@ -43,9 +43,9 @@
            <input type="number" class="form-control" id="price" name="price" placeholder="Enter Price" required>
          </div>
         
-        
+         <button type="submit" class="btn btn-success mt-2 mb-3" style="text-align:right;">Save</button>
+
    </div>
-   <button type="submit" class="btn btn-success mt-2 mb-3" style="text-align:right;">Save</button>
  </form>
 </div>
  @endsection

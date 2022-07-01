@@ -75,7 +75,7 @@ class RequisitionController extends Controller
             while($quantites[$key]>0)
             {
                 $stock=Stock::where('item_id',$data)
-                ->where('quantity','!=',0)
+                ->where('quantity','!=',0)->orderByDesc('id')
                 ->first();
 
 
@@ -92,6 +92,7 @@ class RequisitionController extends Controller
                     $quantites[$key]=$quantites[$key]-$stock->quantity;
                     $totalPrice+=$stock->quantity*$stock->price;
                     $stock->decrement('quantity',$stock->quantity);
+                    
                 }
                
                
